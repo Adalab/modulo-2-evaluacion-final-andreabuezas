@@ -1,5 +1,13 @@
 .section {
     display: flex;
+    justify-content: space-around;
+
+}
+
+.anime-card {
+    width: 500px;
+}
+
 }
 .divs {
     padding: 20px;

@@ -5,6 +5,7 @@ const searchSeries = document.querySelector(".js-search-series");
 const inputSearch = document.querySelector(".js-input");
 const favouriteSeries = document.querySelector(".js-favourite-series");
 const titleFavourites = document.querySelector(".js-title-favourites");
+const titleCard = document.querySelector(".title-card")
 
 
 
@@ -51,7 +52,7 @@ function renderResults(animeSeriesList , searchSeries) {
             <img src="${imageSeries}" alt="${titleSeries}">
 
         </div>`;
-        
+
         searchSeries.innerHTML += resultsHTML; 
 
 
@@ -68,12 +69,19 @@ function handleFavouriteSeries (event){
 
     const seriesSelected = animeSeriesList.find((anime) =>{
         return idClickedAnime === anime.mal_id;
-        
-});
+        }
+    );
+
+    event.currentTarget.classList.add('favourite-card');
+
+
+    const titleClickedAnime = event.currentTarget.querySelector('.title-card');
+    titleClickedAnime.classList.add('title-anime-card');
 
     const indexSeriesFavourites = favouriteSeriesList.findIndex((favouriteAnime)=> {
         return idClickedAnime === favouriteAnime.mal_id;
-    });
+        }
+    );
 
 
 // Si no existe como favorita:
