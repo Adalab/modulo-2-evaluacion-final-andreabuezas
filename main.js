@@ -1,11 +1,5 @@
 "use strict";
 
-// API : https://api.jikan.moe/v4/anime?q=naruto
-// Buscador de series
-// cambiar la parte naruto por lo que escribe el usuario
-//"https://api.jikan.moe/v4/anime?q=" + value
-
-
 const buttonSearch = document.querySelector(".js-submit-bttn");
 const searchSeries = document.querySelector(".js-search-series");
 const inputSearch = document.querySelector(".js-input");
