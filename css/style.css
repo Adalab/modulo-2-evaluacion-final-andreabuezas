@@ -1,89 +1,136 @@
-body {
-    background-color: rgb(11, 11, 88);
-}
-
-.main-title{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(241, 249, 167);
-    padding: 20px;
-}
-
-.input-search {
-    background-color: rgb(11, 11, 88);
-    border: 2px solid rgb(241, 249, 167);
-    width: 40%;
-}
-
-.submit-button {
-    background-color: rgb(241, 249, 167) ;
-    padding: 5px;
-    border-radius: 10px;
-    margin-left: 10px;
-    color: rgb(11, 11, 88);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
-}
-
-.reset-button{
-    background-color: rgb(241, 249, 167) ;
-    padding: 5px;
-    border-radius: 10px;
-    margin-left: 10px;
-    color: rgb(11, 11, 88);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
-}
-
-.form {
+  body {
+    background-color: black;
+  }
+  
+  .main-title {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #65e5d4;
     padding: 25px;
-}
-
-.favourites {
-    border: 3px solid rgb(200, 146, 200);
-}
-
-.favourite-series-title{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color:  rgb(11, 11, 88);
-    background-color:  rgb(200, 146, 200);
+  }
+  
+  .input-search {
+    background-color: black;
+    border: 2px solid #65e5d4;
+    width: 40%;
     padding: 10px;
-}
+    color: #65e5d4;
+  }
+  
+  .submit-button {
+    background-color: #65e5d4 ;
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+  }
+  
+  .reset-button {
+    background-color: #65e5d4;
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: white;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+  }
+  
+  .form {
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+  
+  .favourites {
+    border: 3px solid rgb(241, 206, 224);
+    border-radius: 5px;
+    margin-left: 50px;
+  }
+  
+  .favourite-series-title {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(9, 9, 57);
 
-.title-card{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(241, 249, 167);
-   padding: 20px;
+    background-color: rgb(241, 206, 224);
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .title-card {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(181, 182, 172);
+    padding: 20px;
     font-size: 12px;
-}
-
-.search {
-    border: 3px solid rgb(237, 214, 130);
-}
-
-.search-series-title {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color:  rgb(11, 11, 88);
-    background-color: rgb(237, 214, 130);
+    width: 180px;
+  }
+  
+  .search {
+    border: 3px solid white;
+    border-radius: 5px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  
+  .search-series-title {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(9, 9, 57);
+    background-color: white;
     padding: 10px;
-}
-
-.section {
+    text-align: center;
+  }
+  
+  .container-search {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .container-search img {
+    width: 180px;
+  }
+  
+  .section {
     display: flex;
     justify-content: space-evenly;
     width: 100vw;
+    gap: 50px;
+    padding: 10px;
+  }
+  
+  .anime-card {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+  }
+  
+  .favourite-card {
+    background-color: black;
+    border: 8px solid #65e5d4;
+    border-radius: 10px;
+    color: #65e5d4;
+  }
+  
+  .title-anime-card {
+    color: #65e5d4;
+  }
+  
+  
+  .container-favourites div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  
+ 
+  
+  .container-favourites img {
+    width: 100px;
+  }
 
-}
-
-.anime-card {
-   width: 300px;
-}
-
-.hidden {
+  
+  .hidden {
     display: ;
-}
-
-.favourite-card{
-    background-color:  rgb(227, 226, 206);
-}
-
-.title-anime-card {
-    color: rgb(71, 19, 36);
-}
+  }

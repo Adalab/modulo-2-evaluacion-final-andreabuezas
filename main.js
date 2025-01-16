@@ -1,6 +1,6 @@
 "use strict";
 
-const searchButton = document.querySelector(".js-submit-bttn");
+const buttonSearch = document.querySelector(".js-submit-bttn");
 const searchedSeries = document.querySelector(".js-search-series");
 const inputSearch = document.querySelector(".js-input");
 const favouriteSeries = document.querySelector(".js-favourite-series");
@@ -10,7 +10,7 @@ const divFavourites = document.querySelector(".js-div-favourites");
 const titleSearch = document.querySelector(".js-title-search");
 const divSearch = document.querySelector(".js-div-search");
 const resetButton = document.querySelector(".js-reset-bttn");
-const deleteFavourites = document.querySelector(".js-delete-favourites");
+
 
 
 
@@ -22,39 +22,43 @@ let favouriteSeriesList = [];
 
 //GUARDAR FAVORITOS EN LOCAL
 const savedFavourites = JSON.parse(localStorage.getItem("favouriteSeries"));
-if (savedFavourites) {
-    favouriteSeriesList = savedFavourites;
-    renderResults(favouriteSeriesList, favouriteSeries);
-    titleFavourites.classList.remove("hidden");
-    divFavourites.classList.remove("hidden");
-    titleSearch.classList.add("hidden");
-    divSearch.classList.add("hidden");
-};
+if (savedFavourites && savedFavourites.length > 0) {
+  favouriteSeriesList = savedFavourites;
+  renderResults(favouriteSeriesList, favouriteSeries, true);
+  titleFavourites.classList.remove("hidden");
+  divFavourites.classList.remove("hidden");
+  titleSearch.classList.add("hidden");
+  divSearch.classList.add("hidden");
+} else {
+  titleFavourites.classList.add("hidden");
+  divFavourites.classList.add("hidden");
+}
 
 //BUSCAR SERIES (donde pone naruto introducimos lo que busca el usuario)
 function handleSearchedSeries (event){
     event.preventDefault();
     const value = inputSearch.value;
+
     fetch(`https://api.jikan.moe/v4/anime?q=${value}`)
+        .then ((res) => res.json())
+        .then((data) => {
+            animeSeriesList = data.data;
 
-    .then ((res) => res.json())
-    .then((data) => {
-        animeSeriesList = data.data;
-
-        renderResults(animeSeriesList, searchedSeries);
+        renderResults(animeSeriesList, searchedSeries, false);
 
     });
 }
-searchButton.addEventListener("click", handleSearchedSeries);
+buttonSearch.addEventListener("click", handleSearchedSeries);
 
 
 //RENDERIZA BUSQUEDA DE SERIES Y LA MUESTRA EN UN CONTENEDOR
-const placeholderImage = "https://via.placeholder.com/210x295/ffffff/666666/?text=TV."
 
+const placeholderImage = "https://via.placeholder.com/210x295/ffffff/666666/?text=TV.";
 
-function renderResults(animeSeriesList , searchedSeries) {
-    searchedSeries.innerHTML = '';
-    let resultsHTML = '';
+function renderResults(animeSeriesList , searchedSeries,) {
+
+    searchedSeries.innerHTML = " ";
+    let resultsHTML = " ";
 
     for (const anime of animeSeriesList) {
         const titleSeries = anime.title;
@@ -88,6 +92,7 @@ function renderResults(animeSeriesList , searchedSeries) {
 
 // AÑADIR SERIE A FAVORITOS 
 function handleFavouriteSeries (event){
+
     const idClickedAnime = parseInt(event.currentTarget.id);
 
     const seriesSelected = animeSeriesList.find((anime) =>{
@@ -108,36 +113,33 @@ function handleFavouriteSeries (event){
 
 
 // SI NO EXISTE COMO FAVORITA 
-if (indexSeriesFavourites === -1){
+    if (indexSeriesFavourites === -1){
     favouriteSeriesList.push(seriesSelected);
-    renderResults(favouriteSeriesList, favouriteSeries);
+    renderResults(favouriteSeriesList, favouriteSeries, true);
     titleFavourites.classList.remove("hidden");
+    divFavourites.classList.remove("hidden");
 
     localStorage.setItem("favouriteSeries", JSON.stringify(favouriteSeriesList));
-}
+    }
 
 }
 
 //BOTÓN RESET 
 function handleResetButton() {
-    
     favouriteSeriesList = [];
     animeSeriesList = [];
-
+  
     localStorage.removeItem("favouriteSeries");
-
   
     titleFavourites.classList.add("hidden");
     divFavourites.classList.add("hidden");
     titleSearch.classList.add("hidden");
     divSearch.classList.add("hidden");
-
-
-    favouriteSeries.innerHTML = '';
-    searchedSeries.innerHTML = '';
-   
-
-    inputSearch.value = '';
-}
-
-resetButton.addEventListener("click", handleResetButton);
+  
+    favouriteSeries.innerHTML = "";
+    searchedSeries.innerHTML = "";
+  
+    inputSearch.value = "";
+  }
+  
+  resetButton.addEventListener("click", handleResetButton);
