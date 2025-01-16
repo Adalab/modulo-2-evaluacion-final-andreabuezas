@@ -1,18 +1,37 @@
 "use strict";
 
-const buttonSearch = document.querySelector(".js-submit-bttn");
-const searchSeries = document.querySelector(".js-search-series");
+const searchButton = document.querySelector(".js-submit-bttn");
+const searchedSeries = document.querySelector(".js-search-series");
 const inputSearch = document.querySelector(".js-input");
 const favouriteSeries = document.querySelector(".js-favourite-series");
 const titleFavourites = document.querySelector(".js-title-favourites");
-const titleCard = document.querySelector(".title-card")
+const titleCard = document.querySelector(".title-card");
+const divFavourites = document.querySelector(".js-div-favourites");
+const titleSearch = document.querySelector(".js-title-search");
+const divSearch = document.querySelector(".js-div-search");
+const resetButton = document.querySelector(".js-reset-bttn");
+const deleteFavourites = document.querySelector(".js-delete-favourites");
 
 
 
+
+//CREO LAS LISTAS  VACÍAS (ARRAYS)
 let animeSeriesList = [];
 let favouriteSeriesList = [];
 
 
+//GUARDAR FAVORITOS EN LOCAL
+const savedFavourites = JSON.parse(localStorage.getItem("favouriteSeries"));
+if (savedFavourites) {
+    favouriteSeriesList = savedFavourites;
+    renderResults(favouriteSeriesList, favouriteSeries);
+    titleFavourites.classList.remove("hidden");
+    divFavourites.classList.remove("hidden");
+    titleSearch.classList.add("hidden");
+    divSearch.classList.add("hidden");
+};
+
+//BUSCAR SERIES (donde pone naruto introducimos lo que busca el usuario)
 function handleSearchedSeries (event){
     event.preventDefault();
     const value = inputSearch.value;
@@ -22,17 +41,19 @@ function handleSearchedSeries (event){
     .then((data) => {
         animeSeriesList = data.data;
 
-        renderResults(animeSeriesList, searchSeries);
+        renderResults(animeSeriesList, searchedSeries);
 
     });
 }
-buttonSearch.addEventListener("click", handleSearchedSeries);
+searchButton.addEventListener("click", handleSearchedSeries);
 
+
+//RENDERIZA BUSQUEDA DE SERIES Y LA MUESTRA EN UN CONTENEDOR
 const placeholderImage = "https://via.placeholder.com/210x295/ffffff/666666/?text=TV."
 
 
-function renderResults(animeSeriesList , searchSeries) {
-    searchSeries.innerHTML = '';
+function renderResults(animeSeriesList , searchedSeries) {
+    searchedSeries.innerHTML = '';
     let resultsHTML = '';
 
     for (const anime of animeSeriesList) {
@@ -52,8 +73,9 @@ function renderResults(animeSeriesList , searchSeries) {
             <img src="${imageSeries}" alt="${titleSeries}">
 
         </div>`;
+        
 
-        searchSeries.innerHTML += resultsHTML; 
+        searchedSeries.innerHTML += resultsHTML; 
 
 
         const animeSeries = document.querySelectorAll(".js-series");
@@ -64,6 +86,7 @@ function renderResults(animeSeriesList , searchSeries) {
     };
 }
 
+// AÑADIR SERIE A FAVORITOS 
 function handleFavouriteSeries (event){
     const idClickedAnime = parseInt(event.currentTarget.id);
 
@@ -84,12 +107,37 @@ function handleFavouriteSeries (event){
     );
 
 
-// Si no existe como favorita:
+// SI NO EXISTE COMO FAVORITA 
 if (indexSeriesFavourites === -1){
     favouriteSeriesList.push(seriesSelected);
     renderResults(favouriteSeriesList, favouriteSeries);
     titleFavourites.classList.remove("hidden");
 
+    localStorage.setItem("favouriteSeries", JSON.stringify(favouriteSeriesList));
 }
 
 }
+
+//BOTÓN RESET 
+function handleResetButton() {
+    
+    favouriteSeriesList = [];
+    animeSeriesList = [];
+
+    localStorage.removeItem("favouriteSeries");
+
+  
+    titleFavourites.classList.add("hidden");
+    divFavourites.classList.add("hidden");
+    titleSearch.classList.add("hidden");
+    divSearch.classList.add("hidden");
+
+
+    favouriteSeries.innerHTML = '';
+    searchedSeries.innerHTML = '';
+   
+
+    inputSearch.value = '';
+}
+
+resetButton.addEventListener("click", handleResetButton);
